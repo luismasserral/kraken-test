@@ -17,7 +17,7 @@ class FilesService
         $files = [];
 
         foreach (new DirectoryIterator(self::UPLOAD_PATH) as $fileInfo) {
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->isDot() || $fileInfo->getFilename() === '.gitkeep') {
                 continue;
             }
 
