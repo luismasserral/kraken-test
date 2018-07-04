@@ -45,8 +45,20 @@ class FilesController extends BaseController
         }
     }
 
-    public function delete(): JsonResponse
+    public function delete(Request $request): JsonResponse
     {
-        return response()->json(['delete' => 1]);
+        if (!$request->has('filename')) {
+            return response()->json([
+                'error' => 'A filename must be provided',
+            ], 400);
+        }
+
+        if (!app('FilesService')->deleteFile($request->get('filename'))) {
+            return response()->json([
+                'error' => 'File could not have been deleted',
+            ], 500);
+        }
+
+        return response()->json();
     }
 }

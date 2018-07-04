@@ -40,6 +40,13 @@ class FilesService
         return $this->getSavedFileInfo($savedFile);
     }
 
+    public function deleteFile(string $fileName): bool
+    {
+        $filePath = self::UPLOAD_PATH . $fileName;
+
+        return is_file($filePath) && unlink($filePath);
+    }
+
     private function getDirectoryFileInfo(DirectoryIterator $fileInfo): array
     {
         return [
