@@ -1,4 +1,4 @@
-import fetch from "isomorphic-fetch";
+import fetch from 'isomorphic-fetch';
 import {
   REQUEST_FILES,
   RECEIVE_FILES,
@@ -6,11 +6,11 @@ import {
   RECEIVE_UPLOADED_FILE,
   DELETE_FILE,
   RECEIVE_DELETED_FILE,
-} from "../constants/action-types";
+} from '../constants/action-types';
 
 function requestFiles() {
   return {
-    type: REQUEST_FILES
+    type: REQUEST_FILES,
   };
 }
 
@@ -50,25 +50,25 @@ function receiveDeleteFile(filename) {
 }
 
 export function fetchFiles() {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(requestFiles());
 
-    return fetch("http://localhost:8000/api/files")
+    return fetch('http://localhost:8000/api/files')
       .then(response => response.json())
       .then(json => dispatch(receiveFiles(json)));
   };
 }
 
 export function sendFile(file) {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(uploadFile());
 
     const data = new FormData();
-    data.append("file", file);
+    data.append('file', file);
 
-    return fetch("http://localhost:8000/api/files", {
-      method: "POST",
-      body: data
+    return fetch('http://localhost:8000/api/files', {
+      method: 'POST',
+      body: data,
     })
       .then(response => response.json())
       .then(json => dispatch(receiveUploadedFile(json)));
@@ -76,13 +76,13 @@ export function sendFile(file) {
 }
 
 export function removeFile(filename) {
-  return function(dispatch) {
+  return (dispatch) => {
     dispatch(deleteFile(filename));
 
     const queryString = `filename=${encodeURIComponent(filename)}`;
 
     return fetch(`http://localhost:8000/api/files?${queryString}`, {
-      method: "DELETE",
+      method: 'DELETE',
     })
       .then(response => response.json())
       .then(() => dispatch(receiveDeleteFile(filename)));

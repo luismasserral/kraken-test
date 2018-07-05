@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getHumanFileSize } from "../helpers/file";
-import { removeFile } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getHumanFileSize } from '../helpers/file';
+import { removeFile } from '../actions/index';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    removeFile: (file) => dispatch(removeFile(file.name))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  removeFile: file => dispatch(removeFile(file.name)),
+});
 
 class ConnectedFileListItem extends Component {
   constructor(props) {
@@ -21,15 +19,15 @@ class ConnectedFileListItem extends Component {
     this.doRemoveFile = this.doRemoveFile.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.timeoutId = setTimeout(() => {
-        this.setState({ show: true });
+      this.setState({ show: true });
     }, 10);
-  } 
+  }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.timeoutId) {
-        clearTimeout(this.timeoutId);
+      clearTimeout(this.timeoutId);
     }
   }
 
@@ -44,7 +42,9 @@ class ConnectedFileListItem extends Component {
     return (
       <li className={this.state.show ? 'show' : null} key={key}>
         <div className="file-info">
-          <span className="name" title={file.name}>{file.name}</span>
+          <span className="name" title={file.name}>
+            {file.name}
+          </span>
           <span className="size">{getHumanFileSize(file.size)}</span>
         </div>
         <a className="btn btn-default" onClick={doRemoveFile}>
@@ -57,12 +57,12 @@ class ConnectedFileListItem extends Component {
 
 const FileListItem = connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ConnectedFileListItem);
 
 ConnectedFileListItem.propTypes = {
   file: PropTypes.object.isRequired,
-  removeFile: PropTypes.func.isRequired
+  removeFile: PropTypes.func.isRequired,
 };
 
 export default FileListItem;

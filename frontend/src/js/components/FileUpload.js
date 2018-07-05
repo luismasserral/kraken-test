@@ -1,24 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { isFileValid } from "../helpers/file";
-import { sendFile } from "../actions/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { isFileValid } from '../helpers/file';
+import { sendFile } from '../actions/index';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    sendFile: file => dispatch(sendFile(file))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  sendFile: file => dispatch(sendFile(file)),
+});
 
 class ConnectedFileUpload extends Component {
   constructor() {
     super();
 
     this.state = {
-      file: "",
+      file: '',
       inDropZone: false,
-      uploading: false
+      uploading: false,
     };
 
     this.simulateFileClick = this.simulateFileClick.bind(this);
@@ -66,7 +64,7 @@ class ConnectedFileUpload extends Component {
     if (dataTransfer.items) {
       file = dataTransfer.items[0].getAsFile();
     } else {
-      file = dataTransfer.files[0];
+      ({ file } = dataTransfer.files);
     }
 
     this.validateFileBeforeUpload(file);
@@ -77,34 +75,36 @@ class ConnectedFileUpload extends Component {
       this.setState(
         {
           file,
-          uploading: true
+          uploading: true,
         },
         () => {
           this.props.sendFile(file);
-        }
+        },
       );
     }
   }
 
   render() {
-    const classes = classNames("upload-wrapper", {
+    const classes = classNames('upload-wrapper', {
       active: this.state.inDropZone,
-      uploading: this.state.uploading
+      uploading: this.state.uploading,
     });
 
     const dropEvents = {
       onDrop: this.handleDrop,
       onDragOver: this.handleDragOver,
       onDragLeave: this.handleDragLeave,
-      onClick: this.simulateFileClick
+      onClick: this.simulateFileClick,
     };
 
     const fileInputAttrs = {
-      ref: input => (this.fileInput = input),
-      type: "file",
-      id: "file",
+      ref: (input) => {
+        this.fileInput = input;
+      },
+      type: 'file',
+      id: 'file',
       onChange: this.handleFilesChange,
-      multiple: false
+      multiple: false,
     };
 
     return (
@@ -118,11 +118,11 @@ class ConnectedFileUpload extends Component {
 
 const FileUpload = connect(
   null,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ConnectedFileUpload);
 
 ConnectedFileUpload.propTypes = {
-  sendFile: PropTypes.func.isRequired
+  sendFile: PropTypes.func.isRequired,
 };
 
 export default FileUpload;

@@ -1,27 +1,19 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { fetchFiles } from "../actions/index";
-import FileListItem from "./FileListItem"
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { fetchFiles } from '../actions/index';
+import FileListItem from './FileListItem';
 
-const mapStateToProps = state => {
-  return {
-    files: state.files
-  };
-};
+const mapStateToProps = state => ({
+  files: state.files,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchFiles: () => dispatch(fetchFiles()),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchFiles: () => dispatch(fetchFiles()),
+});
 
 class ConnectedFileList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchFiles();
   }
@@ -29,15 +21,13 @@ class ConnectedFileList extends Component {
   render() {
     const { props } = this;
 
-    const classes = classNames("files-list", {
-      hidden: !props.files.length
+    const classes = classNames('files-list', {
+      hidden: !props.files.length,
     });
 
     return (
       <ul className={classes}>
-        {props.files.map(el => (
-          <FileListItem file={el} key={el.name} />
-        ))}
+        {props.files.map(el => <FileListItem file={el} key={el.name} />)}
       </ul>
     );
   }
@@ -45,7 +35,7 @@ class ConnectedFileList extends Component {
 
 const FileList = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ConnectedFileList);
 
 ConnectedFileList.propTypes = {

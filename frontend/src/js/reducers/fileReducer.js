@@ -1,8 +1,8 @@
 import {
   RECEIVE_FILES,
   RECEIVE_UPLOADED_FILE,
-  RECEIVE_DELETED_FILE
-} from "../constants/action-types";
+  RECEIVE_DELETED_FILE,
+} from '../constants/action-types';
 
 const fileReducer = (state = [], action) => {
   switch (action.type) {
@@ -11,7 +11,7 @@ const fileReducer = (state = [], action) => {
     case RECEIVE_UPLOADED_FILE:
       return [...state, action.file];
     case RECEIVE_DELETED_FILE:
-      return [...state.filter(file => file.name != action.filename)];
+      return [...state.filter(file => file.name !== action.filename)];
     default:
       return state;
   }
