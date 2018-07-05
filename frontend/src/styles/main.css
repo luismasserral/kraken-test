@@ -1,0 +1,99 @@
+html,
+body {
+  background-color: #f1f1f1;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  background-color: #fff;
+  height: 100%;
+  max-width: 720px;
+  padding: 15px 30px;
+}
+
+.header img {
+  display: inline-block;
+  margin-right: 15px;
+  width: 100px;
+}
+
+.header h1 {
+  color: #4b403a;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.upload-wrapper {
+  border: 2px dashed #1898d4;
+  height: 100px;
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.upload-wrapper input {
+  display: none;
+}
+
+.upload-wrapper p {
+  color: #1898d4;
+  font-size: 27px;
+  font-weight: bold;
+  line-height: 100px;
+  opacity: 0.75;
+  text-align: center;
+}
+
+.files-list {
+  list-style: none;
+  margin-top: 30px;
+  padding: 0;
+}
+
+.files-list li {
+  background-color: #1898d4;
+  color: #fff;
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+.files-list li .btn {
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  color: #1898d4;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.files-list li .btn:hover {
+  background: #fff;
+  color: #1898d4;
+}
+
+.files-list li .name {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.files-list li .size {
+  display: block;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.files-list li .file-info {
+  max-width: 85%;
+  overflow: hidden;
+}
