@@ -1,17 +1,20 @@
 import React from "react";
-import List from "./List";
-import Form from "./Form";
+import FileUpload from "./FileUpload"
+import FileList from "./FileList"
+
+import '../../styles/main.css';
+import logo from '../../assets/logo.png';
 
 const App = () => (
-  <div className="row mt-5">
-    <div className="col-md-4 offset-md-1">
-      <h2>Articles</h2>
-      <List />
+  <div className="wrapper">
+    <div className="row">
+      <div className="col header">
+        <img src="/assets/logo.png" />
+        <h1>Kraken Test - File Upload</h1>
+      </div>
     </div>
-    <div className="col-md-4 offset-md-1">
-      <h2>Add a new article</h2>
-      <Form />
-    </div>
+    <FileUpload />
+    <FileList />
   </div>
 );
 
