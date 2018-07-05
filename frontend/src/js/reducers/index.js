@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import articleReducer from "./articleReducer";
+import fileReducer from "./fileReducer";
 
-export default combineReducers({ articles: articleReducer });
+export default combineReducers({ files: fileReducer });
