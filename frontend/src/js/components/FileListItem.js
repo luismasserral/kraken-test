@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { getHumanFileSize } from '../helpers/file';
 import { removeFile } from '../actions/index';
 
@@ -37,10 +38,15 @@ class ConnectedFileListItem extends Component {
 
   render() {
     const { doRemoveFile } = this;
-    const { file, key } = this.props;
+    const { file, filter, key } = this.props;
+
+    const classes = classNames('', {
+      show: this.state.show,
+      hidden: file.name.indexOf(filter) === -1,
+    });
 
     return (
-      <li className={this.state.show ? 'show' : null} key={key}>
+      <li className={classes} key={key}>
         <div className="file-info">
           <span className="name" title={file.name}>
             {file.name}

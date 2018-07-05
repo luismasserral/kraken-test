@@ -6,7 +6,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .container {
@@ -48,9 +48,21 @@ body {
   text-align: center;
 }
 
+.file-list-wrapper {
+  border-top: 1px solid #e1e1e1;
+  margin-top: 30px;
+  padding-top: 30px;
+}
+
+.file-list-wrapper input {
+  font-size: 18px;
+  padding: 15px;
+  width: 100%;
+}
+
 .files-list {
   list-style: none;
-  margin-top: 30px;
+  margin-top: 15px;
   padding: 0;
 }
 
@@ -63,13 +75,13 @@ body {
   padding: 10px 15px;
   position: relative;
   transform: rotateX(-90deg);
-  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  transition: all 0.5s cubic-bezier(0.36, -0.64, 0.34, 1.76);
 }
 
 .files-list li.show {
   opacity: 1;
   transform: none;
-  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  transition: all 0.5s cubic-bezier(0.36, -0.64, 0.34, 1.76);
 }
 
 .files-list li .btn {

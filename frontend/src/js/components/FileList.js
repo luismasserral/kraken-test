@@ -14,21 +14,45 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class ConnectedFileList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filter: '',
+    };
+
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchFiles();
   }
 
-  render() {
-    const { props } = this;
+  handleFilterChange(event) {
+    this.setState({ filter: event.target.value });
+  }
 
-    const classes = classNames('files-list', {
-      hidden: !props.files.length,
+  render() {
+    const { handleFilterChange, props, state } = this;
+    const emptyList = props.files.length === 0;
+
+    const listClasses = classNames('files-list', {
+      hidden: emptyList,
     });
 
     return (
-      <ul className={classes}>
-        {props.files.map(el => <FileListItem file={el} key={el.name} />)}
-      </ul>
+      <div className="file-list-wrapper">
+        <input
+          className={emptyList ? 'hidden' : null}
+          onChange={handleFilterChange}
+          placeholder="Filter by name or extension..."
+          type="text"
+          value={state.filter}
+        />
+        <ul className={listClasses}>
+          {props.files.map(el => <FileListItem file={el} key={el.name} filter={state.filter} />)}
+        </ul>
+      </div>
     );
   }
 }
