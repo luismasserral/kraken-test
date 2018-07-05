@@ -14,7 +14,23 @@ class ConnectedFileListItem extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      show: false,
+    };
+
     this.doRemoveFile = this.doRemoveFile.bind(this);
+  }
+
+  componentDidMount () {
+    this.timeoutId = setTimeout(() => {
+        this.setState({ show: true });
+    }, 10);
+  } 
+
+  componentWillUnmount () {
+    if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+    }
   }
 
   doRemoveFile() {
@@ -26,7 +42,7 @@ class ConnectedFileListItem extends Component {
     const { file, key } = this.props;
 
     return (
-      <li key={key}>
+      <li className={this.state.show ? 'show' : null} key={key}>
         <div className="file-info">
           <span className="name" title={file.name}>{file.name}</span>
           <span className="size">{getHumanFileSize(file.size)}</span>
