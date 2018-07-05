@@ -8,6 +8,9 @@ import {
   RECEIVE_DELETED_FILE,
 } from '../constants/action-types';
 
+const { BACKEND_PROTOCOL, BACKEND_HOST, BACKEND_PORT } = process.env;
+const BACKEND_BASE = `${BACKEND_PROTOCOL}://${BACKEND_HOST}:${BACKEND_PORT}`;
+
 function requestFiles() {
   return {
     type: REQUEST_FILES,
@@ -53,7 +56,7 @@ export function fetchFiles() {
   return (dispatch) => {
     dispatch(requestFiles());
 
-    return fetch('http://localhost:8000/api/files')
+    return fetch(`${BACKEND_BASE}/api/files`)
       .then(response => response.json())
       .then(json => dispatch(receiveFiles(json)));
   };
@@ -66,7 +69,7 @@ export function sendFile(file) {
     const data = new FormData();
     data.append('file', file);
 
-    return fetch('http://localhost:8000/api/files', {
+    return fetch(`${BACKEND_BASE}/api/files`, {
       method: 'POST',
       body: data,
     })
@@ -81,7 +84,7 @@ export function removeFile(filename) {
 
     const queryString = `filename=${encodeURIComponent(filename)}`;
 
-    return fetch(`http://localhost:8000/api/files?${queryString}`, {
+    return fetch(`${BACKEND_BASE}/api/files?${queryString}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
